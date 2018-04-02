@@ -6,6 +6,8 @@ package WordList::Test::Dynamic::Number::10Million;
 use WordList;
 our @ISA = qw(WordList);
 
+our $DYNAMIC = 1;
+
 sub each_word {
     my ($self, $code) = @_;
 
