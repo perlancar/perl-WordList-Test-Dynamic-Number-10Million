@@ -6,16 +6,28 @@ package WordList::Test::Dynamic::Number::10Million;
 use WordList;
 our @ISA = qw(WordList);
 
+use Role::Tiny::With;
+with 'WordListRole::EachFromFirstNextReset';
+
 our $DYNAMIC = 1;
 
-sub each_word {
-    my ($self, $code) = @_;
+sub reset_iterator {
+    my $self = shift;
+    $self->[0] = 0;
+}
 
-    for my $i (1..10_000_000) {
-        my $word = sprintf "%08d", $i;
-        my $res = $code->($word);
-        last if defined $res && $res == -2;
-    }
+sub first_word {
+    my $self = shift;
+    $self->reset_iterator;
+    $self->next_word;
+}
+
+sub next_word {
+    my $self = @_;
+
+    $self->[0] = 0 unless defined $self->[0];
+    return undef if $self->[0]++ >= 10_000_000;
+    sprintf "%08d", $self->[0];
 }
 
 # STATS
