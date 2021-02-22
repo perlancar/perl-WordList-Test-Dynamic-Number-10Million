@@ -13,7 +13,7 @@ our $DYNAMIC = 1;
 
 sub reset_iterator {
     my $self = shift;
-    $self->[0] = 0;
+    $self->{_iterator_idx} = 0;
 }
 
 sub first_word {
@@ -25,9 +25,9 @@ sub first_word {
 sub next_word {
     my $self = @_;
 
-    $self->[0] = 0 unless defined $self->[0];
-    return undef if $self->[0]++ >= 10_000_000;
-    sprintf "%08d", $self->[0];
+    $self->{_iterator_idx} = 0 unless defined $self->{_iterator_idx};
+    return undef if $self->{_iterator_idx}++ >= 10_000_000;
+    sprintf "%08d", $self->{_iterator_idx};
 }
 
 # STATS
