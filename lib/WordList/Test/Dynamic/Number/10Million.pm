@@ -23,7 +23,7 @@ sub first_word {
 }
 
 sub next_word {
-    my $self = @_;
+    my $self = shift;
 
     $self->{_iterator_idx} = 0 unless defined $self->{_iterator_idx};
     return undef if $self->{_iterator_idx}++ >= 10_000_000;
